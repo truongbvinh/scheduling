@@ -5,6 +5,7 @@ Tests and runs the schedulers. Main file
 """
 
 from FIFOScheduler import FIFOScheduler
+from SJFScheduler import SJFScheduler
 from process import process
 
 def main():
@@ -21,13 +22,13 @@ if __name__ == "__main__":
         for proc in procs:
             if proc.arrival == i:
                 sched.add_job(proc)
-                sched.get_next()
 
         if sched.isJobFinished():
             if sched.current != None:
                 sched.current.set_finish(i)
                 sched.remove_job(sched.current)
-            sched.get_next()
+        
+        sched.get_next()
 
         if sched.current != None:
             if sched.current.start == None:
