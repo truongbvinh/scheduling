@@ -10,16 +10,19 @@ class baseScheduler(ABC):
         pass
 
     @abstractmethod
-    def add_job(self):
+    def add_job(self, proc):
         pass
     
     @abstractmethod
-    def remove_job(self):
+    def remove_job(self, proc):
         pass
     
     @abstractmethod
     def get_next(self):
         pass
+    
+    def create_job(self, arrival, burst):
+        self.add_job(process(arrival, burst))
     
     def isJobFinished(self):
         if self.current != None:

@@ -6,6 +6,7 @@ Tests and runs the schedulers. Main file
 
 from FIFOScheduler import FIFOScheduler
 from SJFScheduler import SJFScheduler
+from SRTScheduler import SRTScheduler
 from process import process
 
 def main():
@@ -13,27 +14,33 @@ def main():
     
 if __name__ == "__main__":
     procs = list()
-    procs.append(process(0, 4))
-    procs.append(process(0, 2))
-    procs.append(process(3, 1))
-    sched = FIFOScheduler()
+    procs.append((0, 4))
+    procs.append((0, 2))
+    procs.append((3, 1))
+    schedulers = list()
+    schedulers.append(FIFOScheduler())
+    schedulers.append(SJFScheduler())
+    schedulers.append(SRTScheduler())
     for i in range(30):
-        # Add any processes
-        for proc in procs:
-            if proc.arrival == i:
-                sched.add_job(proc)
+        for sched in schedulers:
+            # Add any processes
+            for proc in procs:
+                if proc[0] == i:
+                    sched.create_job(proc[0], proc[1])
 
-        if sched.isJobFinished():
+            if sched.isJobFinished():
+                if sched.current != None:
+                    sched.current.set_finish(i)
+                    sched.remove_job(sched.current)
+            
+            sched.get_next()
+
             if sched.current != None:
-                sched.current.set_finish(i)
-                sched.remove_job(sched.current)
-        
-        sched.get_next()
-
-        if sched.current != None:
-            if sched.current.start == None:
-                sched.current.set_start(i)
-            sched.current.run(1)
+                if sched.current.start == None:
+                    sched.current.set_start(i)
+                sched.current.run(1)
     
-    for proc in procs:
-        print("Arrival: {}, Burst: {}, Start: {}, Finish: {}, Turnaround: {}".format(proc.arrival, proc.burst, proc.start, proc.finish, proc.finish-proc.arrival))
+    for sched in schedulers:
+        print(sched)
+        for proc in sched.tracker:
+            print("Arrival: {}, Burst: {}, Start: {}, Finish: {}, Turnaround: {}".format(proc.arrival, proc.burst, proc.start, proc.finish, proc.finish-proc.arrival))

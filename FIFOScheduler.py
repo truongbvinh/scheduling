@@ -11,9 +11,11 @@ class FIFOScheduler(baseScheduler):
     def __init__(self):
         self.current = None
         self.processes = list()
+        self.tracker = list()
 
     def add_job(self, process):
         self.processes.append(process)
+        self.tracker.append(process)
     
     def remove_job(self, process):
         self.processes.remove(process)
@@ -25,3 +27,5 @@ class FIFOScheduler(baseScheduler):
             self.current = None
         return self.current
     
+    def __str__(self):
+        return "FIFOScheduler"

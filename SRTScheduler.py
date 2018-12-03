@@ -1,13 +1,13 @@
 """
 Author: Vinh Truong
 
-Implementation of SJF Scheduling algorithm
-Non-preemtive
+Implementation of Shortest Remaining Time Scheduler
+preemptive scheduling algorithm
 """
 
 from baseScheduler import baseScheduler
 
-class SJFScheduler(baseScheduler):
+class SRTScheduler(baseScheduler):
     def __init__(self):
         self.current = None
         self.processes = set()
@@ -23,23 +23,11 @@ class SJFScheduler(baseScheduler):
         self.processes.remove(process)
 
     def get_next(self):
-        if self.current == None:
-            if len(self.processes) != 0:
-                self.current = min(self.processes, key=lambda x: x.remaining)
-            else:
-                self.current = None
-        return self.current
-    
-    def __str__(self):
-        return "SJFScheduler"
-
-
-"""
-dis for SRT
-    def get_next(self):
         if len(self.processes) != 0:
             self.current = min(self.processes, key=lambda x: x.remaining)
         else:
             self.current = None
         return self.current
-"""
+    
+    def __str__(self):
+        return "SRTScheduler"
