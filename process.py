@@ -33,3 +33,6 @@ class process():
     
     def set_finish(self, finish_time):
         self.finish = finish_time
+    
+    def __str__(self):
+        return "{} {}".format(self.arrival, self.burst)
