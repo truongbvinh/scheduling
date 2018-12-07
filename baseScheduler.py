@@ -21,6 +21,19 @@ class baseScheduler(ABC):
     def get_next(self):
         pass
     
+    
+    def all_finished(self):
+        for process in self.tracker:
+            if not process.is_finished():
+                return False
+        return True
+    
+    def avg_turnaround(self):
+        total = 0
+        for process in self.tracker:
+            total += process.finish - process.arrival
+        return total/len(self.tracker)
+    
     def create_job(self, arrival, burst):
         self.add_job(process(arrival, burst))
     

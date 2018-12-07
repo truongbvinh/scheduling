@@ -30,6 +30,8 @@ class SJFScheduler(baseScheduler):
                 self.current = None
         return self.current
     
+    
+    
     def __str__(self):
         return "SJFScheduler"
 

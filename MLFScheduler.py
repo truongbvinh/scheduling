@@ -23,10 +23,13 @@ class MLFScheduler(baseScheduler):
         self.add_job(MLFProcess(arrival, burst, len(self.tracker)))
     
     def remove_job(self, process):
-        try:
-            self.processes[self.current_level].remove(process)
-        except ValueError as e:
-            print("type error but meh")
+        for lv in range(5):
+            try:
+                self.processes[lv].remove(process)
+                return True
+            except ValueError as e:
+                pass
+        return False
     
     def get_next(self):
         if not self.isJobFinished() and self.current.time == 2 ** self.current_level:
@@ -40,7 +43,11 @@ class MLFScheduler(baseScheduler):
                 self.current = self.processes[level][0]
                 self.current_level = level
                 break
+        else:
+            self.current = None
+            self.current_level = None
         return self.current
+    
     
     def _next_level(self, cur_lvl):
         if cur_lvl < 4:
