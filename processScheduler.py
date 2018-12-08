@@ -52,15 +52,19 @@ def main():
         i += 1
     
     for sched in schedulers:
-        print("{} AVG Turnaround: {:.2f}".format(sched, sched.avg_turnaround()))
-        for proc in sched.tracker:
-            print("Arrival: {:2d}, Burst: {:2d}, Start: {:2d}, Finish: {:2d}, Turnaround: {:2d}".format(proc.arrival, proc.burst, proc.start, proc.finish, proc.finish-proc.arrival))
-    
+        print(sched)    
     for sched in schedulers:
-        print("{:.2f}".format(sched.avg_turnaround()), end=" ")
-        for proc in sched.tracker:
-            print(proc.finish - proc.arrival, end=" ")
-        print()
+        print(sched.turnaround_stats())
+    
+    output(schedulers)
+    
+
+def output(schedulers):
+    with open("output.txt", "w+") as file:
+        for sched in schedulers[:-1]:
+            file.write(sched.turnaround_stats())
+            file.write("\n")
+        file.write(schedulers[-1].turnaround_stats())
 
 
     

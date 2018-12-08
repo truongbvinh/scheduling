@@ -30,4 +30,4 @@ class SRTScheduler(baseScheduler):
         return self.current
     
     def __str__(self):
-        return "SRTScheduler"
+        return "SRTScheduler" + super().__str__()

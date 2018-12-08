@@ -33,7 +33,7 @@ class SJFScheduler(baseScheduler):
     
     
     def __str__(self):
-        return "SJFScheduler"
+        return "SJFScheduler" + super().__str__()
 
 
 """

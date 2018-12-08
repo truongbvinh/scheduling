@@ -42,3 +42,19 @@ class baseScheduler(ABC):
             return self.current.is_finished()
         else:
             return True
+    
+    def __str__(self):
+        result = ""
+        result += (" AVG Turnaround: {:.2f}".format(self.avg_turnaround()))
+        result += "\n"
+        for proc in self.tracker:
+            result += ("Arrival: {:3d}, Burst: {:3d}, Start: {:3d}, Finish: {:3d}, Turnaround: {:3d}\n".format(proc.arrival, proc.burst, proc.start, proc.finish, proc.finish-proc.arrival))
+        return result[:-1]
+ 
+    
+    def turnaround_stats(self):
+        result = "{:.2f} ".format(self.avg_turnaround())
+        for proc in self.tracker[:-1]:
+            result += str(proc.finish - proc.arrival) + " "
+        result += str(self.tracker[-1].finish - self.tracker[-1].arrival)
+        return result

@@ -28,4 +28,4 @@ class FIFOScheduler(baseScheduler):
         return self.current
     
     def __str__(self):
-        return "FIFOScheduler"
+        return "FIFOScheduler" + super().__str__()

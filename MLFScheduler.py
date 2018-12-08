@@ -55,5 +55,5 @@ class MLFScheduler(baseScheduler):
         return 4
     
     def __str__(self):
-        return "MLFScheduling"
+        return "MLFScheduling" + super().__str__()
                 
