@@ -7,7 +7,7 @@ runtime and arrival time
 
 class process():
 
-    def __init__(self, arrival, burst):
+    def __init__(self, arrival, burst, pid):
         """
         Initializes the process with the attributes of:
             arrival == arrival time
@@ -21,6 +21,7 @@ class process():
         self.burst = burst
         self.finish = None
         self.start = None
+        self.pid = pid
 
     def run(self, duration):
         self.remaining -= duration

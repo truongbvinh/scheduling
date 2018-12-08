@@ -9,9 +9,8 @@ from process import process
 
 class MLFProcess(process):
     def __init__(self, arrival, burst, pid):
-        super().__init__(arrival, burst)
+        super().__init__(arrival, burst, pid)
         self.time = 0
-        self.pid = pid
     
     def run(self, duration):
         self.remaining -= duration

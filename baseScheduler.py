@@ -35,7 +35,7 @@ class baseScheduler(ABC):
         return total/len(self.tracker)
     
     def create_job(self, arrival, burst):
-        self.add_job(process(arrival, burst))
+        self.add_job(process(arrival, burst, len(self.tracker)))
     
     def isJobFinished(self):
         if self.current != None:

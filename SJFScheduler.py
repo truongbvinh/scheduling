@@ -25,7 +25,7 @@ class SJFScheduler(baseScheduler):
     def get_next(self):
         if self.current == None:
             if len(self.processes) != 0:
-                self.current = min(self.processes, key=lambda x: x.remaining)
+                self.current = min(self.processes, key=lambda x: (x.remaining, x.pid))
             else:
                 self.current = None
         return self.current
